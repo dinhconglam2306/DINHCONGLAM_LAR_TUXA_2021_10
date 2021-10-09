@@ -178,3 +178,14 @@ ul.main_nav_list li.active a{
 {
     color: #61e49b;
 }
+
+.col-lg-12.text-center {
+    position: relative;
+}
+
+.btn-back-home {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}

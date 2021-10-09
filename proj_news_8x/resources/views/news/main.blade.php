@@ -7,10 +7,9 @@
 
 <div class="super_container">
 	@include('news.elements.header')
-	@yield('content')
+		@yield('content')
 	@include('news.elements.footer')
 </div>
-
 @include('news.elements.script')
 </body>
 </html>

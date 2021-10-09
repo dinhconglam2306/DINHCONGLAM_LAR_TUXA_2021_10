@@ -96,6 +96,7 @@ Route::group(['prefix' => $prefixNews, 'namespace' => 'News'], function () {
     Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
         $controller = ucfirst($controllerName)  . 'Controller@';
         Route::get('/',                             [ 'as' => $controllerName,                  'uses' => $controller . 'index' ]);
+        Route::get('/not-found',                    [ 'as' => $controllerName. '/not-found',    'uses' => $controller . 'notFound' ]);
     });
 
     // ============================== CATEGORY ==============================
