@@ -3,15 +3,14 @@
     use App\Helpers\Form as FormTemplate;
     use App\Helpers\Template;
 
-    $formInputAttr = config('zvn.template.form_input');
-    $formLabelAttr = config('zvn.template.form_label');
+    $formInputAttr      = config('zvn.template.form_input');
+    $formLabelAttr      = config('zvn.template.form_label');
 
-    $statusValue      = ['default' => 'Select status', 'active' => config('zvn.template.status.active.name'), 'inactive' => config('zvn.template.status.inactive.name')];
-    $levelValue       = ['default' => 'Select level', 'admin' => config('zvn.template.level.admin.name'), 'member' => config('zvn.template.level.member.name')];
+    $statusValue        = ['default' => 'Select status', 'active' => config('zvn.template.status.active.name'), 'inactive' => config('zvn.template.status.inactive.name')];
+    $levelValue         = ['default' => 'Select level', 'admin' => config('zvn.template.level.admin.name'), 'member' => config('zvn.template.level.member.name')];
 
-    $inputHiddenID    = Form::hidden('id', @$item['id']);
-    $inputHiddenAvatar = Form::hidden('avatar_current', @$item['avatar']);
-    $inputHiddenTask  = Form::hidden('task', 'add');
+    $inputHiddenID      = Form::hidden('id', @$item['id']);
+    $inputHiddenAvatar  = Form::hidden('avatar_current', @$item['avatar']);
 
     $elements = [
         [
@@ -41,7 +40,7 @@
             'avatar'   => (!empty(@$item['id'])) ? Template::showItemThumb($controllerName, @$item['avatar'], @$item['name']) : null ,
             'type'    => "avatar"
         ],[
-            'element' => $inputHiddenID . $inputHiddenAvatar . $inputHiddenTask . Form::submit('Save', ['class'=>'btn btn-success']),
+            'element' => $inputHiddenID . $inputHiddenAvatar  . Form::submit('Save', ['class'=>'btn btn-success','name' => 'taskAdd']),
             'type'    => "btn-submit"
         ]
     ];

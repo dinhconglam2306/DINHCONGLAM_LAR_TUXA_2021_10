@@ -9,14 +9,13 @@ $formLabelAttr = config('zvn.template.form_label_edit');
 $levelValue       = ['default' => 'Select value', 'admin' => config('zvn.template.level.admin.name'), 'member' => config('zvn.template.level.member.name')];
 
 $inputHiddenID    = Form::hidden('id', @$item['id']);
-$inputHiddenTask  = Form::hidden('task', 'change-level');
 
 $elements = [
     [
         'label'   => Form::label('level', 'Level', $formLabelAttr),
         'element' => Form::select('level', $levelValue, @$item['level'], $formInputAttr)
     ],[
-        'element' => $inputHiddenID . $inputHiddenTask . Form::submit('Save', ['class'=>'btn btn-success']),
+        'element' => $inputHiddenID . Form::submit('Save', ['class'=>'btn btn-success','name'=>'taskChangeLevel']),
         'type'    => "btn-submit-edit"
     ]
 ];
