@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\AdminModel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use DB; 
+use Illuminate\Support\Facades\DB;
 class SliderModel extends AdminModel
 {
     public function __construct() {
@@ -80,6 +80,11 @@ class SliderModel extends AdminModel
             $result = $query->get()->toArray();
            
 
+        }
+        if ($options['task'] == 'count-item-in-dashboard') {
+            $query = $this::groupBy('status')
+                            ->select(DB::raw('COUNT(id) as count'));
+            $result = $query->get()->toArray();
         }
 
         return $result;

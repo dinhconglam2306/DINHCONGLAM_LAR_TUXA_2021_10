@@ -125,6 +125,12 @@ class ArticleModel extends AdminModel
             $result = $query->get()->toArray();
         }
 
+        if ($options['task'] == 'count-item-in-dashboard') {
+            $query = $this::groupBy('status')
+                            ->select(DB::raw('COUNT(id) as count'));
+            $result = $query->get()->toArray();
+        }
+
         return $result;
     }
 
