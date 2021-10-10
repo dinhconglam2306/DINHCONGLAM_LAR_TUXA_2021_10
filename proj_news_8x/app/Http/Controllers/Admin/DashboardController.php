@@ -50,6 +50,7 @@ class DashboardController extends Controller
             ['link' => route('article'),  'name' => 'Article', 'icon' => 'fa fa-newspaper-o', 'total' => $totalArticle],
             ['link' => route('slider'),   'name' => 'Slider', 'icon' => 'fa fa-sliders', 'total' => $totalSlider],
             ['link' => route('rss'),      'name' => 'Rss', 'icon' => 'fa fa-link', 'total' => $totalRss],
+            ['link' => route('password'), 'name' => 'Password', 'icon' => 'fa fa-key', 'total' =>1],
         ];
         
         return view($this->pathViewController .  'index', [

@@ -27,8 +27,8 @@ return [
             'all'      => ['name' => 'Tất cả', 'class' => 'btn-success'],
             'active'   => ['name' => 'Kích hoạt', 'class'      => 'btn-success'],
             'inactive' => ['name' => 'Chưa kích hoạt', 'class' => 'btn-info'],
-            'block' => ['name' => 'Bị khóa', 'class' => 'btn-danger'],
-            'default'      => ['name' => 'Chưa xác định', 'class' => 'btn-success'],
+            'block'    => ['name' => 'Bị khóa', 'class' => 'btn-danger'],
+            'default'  => ['name' => 'Chưa xác định', 'class' => 'btn-success'],
         ],
         'is_home'       => [
             'yes'      =>  ['name'=> 'Hiển thị', 'class'=> 'btn-primary'],

@@ -6,13 +6,13 @@ use App\Models\AdminModel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-class SliderModel extends AdminModel
+class PasswordModel extends AdminModel
 {
     public function __construct() {
-        $this->table               = 'slider';
-        $this->folderUpload        = 'slider' ; 
-        $this->fieldSearchAccepted = ['id', 'name', 'description', 'link']; 
-        $this->crudNotAccepted     = ['_token','thumb_current'];
+        $this->table               = 'rss';
+        $this->folderUpload        = 'rss' ; 
+        $this->fieldSearchAccepted = ['id', 'name', 'link']; 
+        $this->crudNotAccepted     = ['_token'];
     }
 
     public function listItems($params = null, $options = null) {
@@ -20,7 +20,7 @@ class SliderModel extends AdminModel
         $result = null;
 
         if($options['task'] == "admin-list-items") {
-            $query = $this->select('id', 'name','ordering', 'description', 'status', 'link', 'thumb','created', 'created_by', 'modified', 'modified_by');
+            $query = $this->select('id', 'name', 'status', 'link', 'ordering', 'source', 'created', 'created_by', 'modified', 'modified_by');
                
             if ($params['filter']['status'] !== "all")  {
                 $query->where('status', '=', $params['filter']['status'] );
@@ -38,15 +38,15 @@ class SliderModel extends AdminModel
                 } 
             }
 
-            $result =  $query->orderBy('id', 'desc')
+            $result =  $query->orderBy('ordering', 'asc')
                             ->paginate($params['pagination']['totalItemsPerPage']);
 
         }
 
         if($options['task'] == 'news-list-items') {
-            $query = $this->select('id', 'name', 'description', 'link', 'thumb')
+            $query = $this->select('id', 'link', 'source')
                         ->where('status', '=', 'active' )
-                        ->limit(5);
+                        ->orderBy('ordering', 'asc');
 
             $result = $query->get()->toArray();
         }
@@ -94,11 +94,7 @@ class SliderModel extends AdminModel
         $result = null;
         
         if($options['task'] == 'get-item') {
-            $result = self::select('id', 'name','description', 'status', 'link', 'thumb')->where('id', $params['id'])->first();
-        }
-
-        if($options['task'] == 'get-thumb') {
-            $result = self::select('id', 'thumb')->where('id', $params['id'])->first();
+            $result = self::select('id', 'name', 'status', 'link', 'ordering', 'source')->where('id', $params['id'])->first();
         }
 
         return $result;
@@ -110,23 +106,13 @@ class SliderModel extends AdminModel
             self::where('id', $params['id'])->update(['status' => $status ]);
         }
 
-        if($options['task'] == 'change-ordering') {
-            $ordering = $params['currentOrdering'];
-            self::where('id', $params['id'])->update(['ordering' => $ordering ]);
-        }
-
         if($options['task'] == 'add-item') {
             $params['created_by'] = "hailan";
             $params['created']    = date('Y-m-d');
-            $params['thumb']      = $this->uploadThumb($params['thumb']);
             self::insert($this->prepareParams($params));        
         }
 
         if($options['task'] == 'edit-item') {
-            if(!empty($params['thumb'])){
-                $this->deleteThumb($params['thumb_current']);
-                $params['thumb'] = $this->uploadThumb($params['thumb']);
-            }
             $params['modified_by']   = "hailan";
             $params['modified']      = date('Y-m-d');
             self::where('id', $params['id'])->update($this->prepareParams($params));
@@ -136,8 +122,6 @@ class SliderModel extends AdminModel
     public function deleteItem($params = null, $options = null) 
     { 
         if($options['task'] == 'delete-item') {
-            $item   = self::getItem($params, ['task'=>'get-thumb']); // 
-            $this->deleteThumb($item['thumb']);
             self::where('id', $params['id'])->delete();
         }
     }

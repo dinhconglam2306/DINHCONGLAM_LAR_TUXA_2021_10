@@ -86,6 +86,14 @@ class Template {
         return $xhtml;
     }
 
+    public static function showItemOrdering ($orderingValue) {
+
+        // $link  = route($controllerName .'/ordering', ['ordering' => $orderingValue, 'id' => $id]);
+        $xhtml = sprintf(
+            '<input data-url="123" type="number"  class="form-control ordering-ajax" value="%s">',$orderingValue);
+        return $xhtml;
+    }
+
     public static function showItemIsHome ($controllerName, $id, $isHomeValue) {
         $tmplIsHome = Config::get('zvn.template.is_home');
         $isHomeValue        = array_key_exists($isHomeValue, $tmplIsHome ) ? $isHomeValue : 'yes';

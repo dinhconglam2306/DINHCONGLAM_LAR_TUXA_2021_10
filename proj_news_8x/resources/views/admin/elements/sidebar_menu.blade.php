@@ -21,6 +21,7 @@
             <li><a href="{{ route('article') }}"><i class="fa fa-newspaper-o"></i> Article</a></li>
             <li><a href="{{ route('slider') }}"><i class="fa fa-sliders"></i> Silders</a></li>
             <li><a href="{{ route('rss') }}"><i class="fa fa-link"></i> Rss</a></li>
+            <li><a href="{{ route('password') }}"><i class="fa fa-key"></i> Password</a></li>
         </ul>
     </div>
 </div>

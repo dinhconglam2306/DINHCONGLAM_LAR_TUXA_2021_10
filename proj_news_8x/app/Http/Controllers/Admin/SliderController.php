@@ -31,4 +31,17 @@ class SliderController extends AdminController
             return redirect()->route($this->controllerName)->with("zvn_notify", $notify);
         }
     }
+
+    public function ordering(MainRequest $request)
+    {
+        $params["currentOrdering"]  = $request->ordering;
+        $params["id"]             = $request->id;
+        $this->model->saveItem($params, ['task' => 'change-ordering']);
+        $ordering = $request->ordering;
+        $link = route($this->controllerName . '/ordering', ['ordering' => $ordering, 'id' => $request->id]);
+        return response()->json([
+            'statusObj' => $ordering,
+            'link' => $link,
+        ]);
+    }
 }
