@@ -106,6 +106,12 @@ class RssModel extends AdminModel
             self::where('id', $params['id'])->update(['status' => $status ]);
         }
 
+        if ($options['task'] == 'change-ordering') {
+            $params['modified'] = date('Y-m-d H:i:s');
+            $params['modified_by']  = session('userInfo')['username'];
+            self::where('id', $params['id'])->update($this->prepareParams($params));
+        }
+
         if($options['task'] == 'add-item') {
             $params['created_by'] = "hailan";
             $params['created']    = date('Y-m-d');

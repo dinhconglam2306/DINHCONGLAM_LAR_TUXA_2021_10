@@ -28,12 +28,11 @@
                             $link            = Hightlight::show($val['link'], $params['search'], 'link');
                             $thumb           = Template::showItemThumb($controllerName, $val['thumb'], $val['name']);;
                             $status          = Template::showItemStatus($controllerName, $id, $val['status']); 
-                            $ordering        = Template::showItemOrdering($val['ordering']);
+                            $ordering        = Template::showItemOrdering($controllerName, $val['ordering'],$id);
                             $createdHistory  = Template::showItemHistory($val['created_by'], $val['created']);
                             $modifiedHistory = Template::showItemHistory($val['modified_by'], $val['modified']);
                             $listBtnAction   = Template::showButtonAction($controllerName, $id);
                         @endphp
-
                         <tr class="{{ $class }} pointer">
                             <td >{{ $index }}</td>
                             <td width="40%">
@@ -45,7 +44,7 @@
                             <td>{!! $status !!}</td>
                             <td>{!! $ordering !!}</td>
                             <td>{!! $createdHistory !!}</td>
-                            <td>{!! $modifiedHistory !!}</td>
+                            <td class="modified-{{ $val['id'] }}">{!! $modifiedHistory !!}</td>
                             <td class="last">{!! $listBtnAction !!}</td>
                         </tr>
                     @endforeach

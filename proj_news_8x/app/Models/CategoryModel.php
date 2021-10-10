@@ -23,7 +23,7 @@ class CategoryModel extends AdminModel
         $result = null;
 
         if ($options['task'] == "admin-list-items") {
-            $query = $this->select('id', 'name', 'status', 'is_home', 'display', 'created', 'created_by', 'modified', 'modified_by');
+            $query = $this->select('id', 'name', 'ordering', 'status', 'is_home', 'display', 'created', 'created_by', 'modified', 'modified_by');
 
             if ($params['filter']['status'] !== "all") {
                 $query->where('status', '=', $params['filter']['status']);
@@ -126,6 +126,12 @@ class CategoryModel extends AdminModel
         if ($options['task'] == 'change-status') {
             $status = ($params['currentStatus'] == "active") ? "inactive" : "active";
             self::where('id', $params['id'])->update(['status' => $status]);
+        }
+
+        if ($options['task'] == 'change-ordering') {
+           $params['modified'] =date('Y-m-d H:i:s');
+           $params['modified_by']  = session('userInfo')['username'];
+           self::where('id', $params['id'])->update($this->prepareParams($params));
         }
 
         if ($options['task'] == 'change-is-home') {

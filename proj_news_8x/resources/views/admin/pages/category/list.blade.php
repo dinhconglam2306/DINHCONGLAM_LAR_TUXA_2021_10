@@ -10,6 +10,7 @@
                     <th class="column-title">#</th>
                     <th class="column-title">Name</th>
                     <th class="column-title">Trạng thái</th>
+                    <th class="column-title">Ordering</th>
                     <th class="column-title">Hiện thị Home</th>
                     <th class="column-title">Kiểu hiện thị</th>
                     <th class="column-title">Tạo mới</th>
@@ -26,6 +27,7 @@
                             $id              = $val['id'];
                             $name            = Hightlight::show($val['name'], $params['search'], 'name');
                             $status          = Template::showItemStatus($controllerName, $id, $val['status']);
+                            $ordering        = Template::showItemOrdering($controllerName,$val['ordering'],$id);
                             $isHome          = Template::showItemIsHome($controllerName, $id, $val['is_home']);
                             $display         = Template::showItemSelect($controllerName, $id, $val['display'], 'display');
                             $createdHistory  = Template::showItemHistory($val['created_by'], $val['created']);
@@ -35,12 +37,13 @@
 
                         <tr class="{{ $class }} pointer">
                             <td >{{ $index }}</td>
-                            <td width="25%">{!! $name !!}</td>
+                            <td width="15%">{!! $name !!}</td>
                             <td>{!! $status !!}</td>
+                            <td>{!! $ordering !!}</td>
                             <td>{!! $isHome  !!}</td>
                             <td>{!! $display !!}</td>
                             <td>{!! $createdHistory !!}</td>
-                            <td>{!! $modifiedHistory !!}</td>
+                            <td class="modified-{{ $val['id'] }}">{!! $modifiedHistory !!}</td>
                             <td class="last">{!! $listBtnAction !!}</td>
                         </tr>
                     @endforeach

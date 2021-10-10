@@ -71,64 +71,81 @@ $(document).ready(function () {
         let url = $(this).data("url");
         let btn = $(this);
         let currentClass = btn.data("class");
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "json",
-            success: function (response) {
-                btn.removeClass(currentClass);
-                btn.addClass(response.statusObj.class);
-                btn.html(response.statusObj.name);
-                btn.data("url", response.link);
-                btn.data("class", response.statusObj.class);
-                btn.notify("Cập nhật thành công", {
-                    position: "top center",
-                    className: "success",
-                });
-            },
-        });
+        callAjaxtypeButton(btn,url,'status',currentClass);
+    });
+
+    $(".ordering-ajax").on("change", function () {
+        let value = $(this).val();
+        let btn = $(this);
+        let url = $(this).data("url");
+        url = url.replace('value_new',value);
+        callAjaxtypeButton(btn,url,'ordering');
     });
 
     $(".is-home-ajax").on("click", function () {
         let url = $(this).data("url");
-        console.log(url)
         let btn = $(this);
         let currentClass = btn.data("class");
-        console.log(currentClass);
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                btn.removeClass(currentClass);
-                btn.addClass(response.isHomeObj.class);
-                btn.html(response.isHomeObj.name);
-                btn.data("url", response.link);
-                btn.data("class", response.isHomeObj.class);
-                btn.notify("Cập nhật thành công", {
-                    position: "top center",
-                    className: "success",
-                });
-            },
-        });
+        callAjaxtypeButton(btn,url,'is-home',currentClass)
     });
 
     $selectChangeAttr.on("change", function () {
-        let ele = $(this);
+        let btn = $(this);
         let selectValue = $(this).val();
         let url = $(this).data("url");
         url = url.replace("value_new", selectValue);
+        callAjaxtypeButton(btn,url,'select');
+    });
+
+
+
+
+    function callAjaxtypeButton(btn,url,type,currentClass = null){
         $.ajax({
             type: "GET",
             url: url,
             dataType: "json",
             success: function (response) {
-                ele.notify("Cập nhật thành công", {
-                    position: "top center",
-                    className: "success",
-                });
+               switch (type) {
+                    case 'status':
+                        btn.removeClass(currentClass);
+                        btn.addClass(response.statusObj.class);
+                        btn.html(response.statusObj.name);
+                        btn.data("url", response.link);
+                        btn.data("class", response.statusObj.class);
+                        btn.notify("Cập nhật thành công", {
+                            position: "top center",
+                            className: "success",
+                        });
+                    break;
+                    case 'is-home':
+                        btn.removeClass(currentClass);
+                        btn.addClass(response.isHomeObj.class);
+                        btn.html(response.isHomeObj.name);
+                        btn.data("url", response.link);
+                        btn.data("class", response.isHomeObj.class);
+                        btn.notify("Cập nhật thành công", {
+                            position: "top center",
+                            className: "success",
+                        });
+                    break;
+                    case 'select':
+                        btn.notify("Cập nhật thành công", {
+                            position: "top center",
+                            className: "success",
+                        });
+                    break;
+                    case 'ordering':
+                        if(response){
+                            btn.notify(response.message, {
+                              position: "top center",
+                              className: "success",
+                          });
+                          $(".modified-"+ response.id).html(response.modified)
+                        }
+                    break;
+               }
             },
         });
-    });
+    }
 });

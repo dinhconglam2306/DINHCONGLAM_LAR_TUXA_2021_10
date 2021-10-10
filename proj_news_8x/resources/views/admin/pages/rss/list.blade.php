@@ -26,7 +26,7 @@
                             $class           = ($index % 2 == 0) ? "even" : "odd";
                             $id              = $val['id'];
                             $source          = $val['source'];
-                            $ordering        = $val['ordering'];
+                            $ordering        = Template::showItemOrdering($controllerName,$val['ordering'],$id);
                             $name            = Hightlight::show($val['name'], $params['search'], 'name');
                             $link            = Hightlight::show($val['link'], $params['search'], 'link');
                             $status          = Template::showItemStatus($controllerName, $id, $val['status']); ;
@@ -39,11 +39,11 @@
                             <td >{{ $index }}</td>
                             <td >{{ $name }}</td>
                             <td >{{ $link }}</td>
-                            <td >{{ $ordering }}</td>
+                            <td >{!! $ordering !!}</td>
                             <td >{{ $source }}</td>
                             <td>{!! $status !!}</td>
                             <td>{!! $createdHistory !!}</td>
-                            <td>{!! $modifiedHistory !!}</td>
+                            <td class="modified-{{ $val['id'] }}">{!! $modifiedHistory !!}</td>
                             <td class="last">{!! $listBtnAction !!}</td>
                         </tr>
                     @endforeach
