@@ -189,3 +189,7 @@ ul.main_nav_list li.active a{
     left: 50%;
     transform: translateX(-50%);
 }
+
+li.category {
+    margin: 3px 4px;
+}

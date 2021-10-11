@@ -19,7 +19,7 @@
                 </ul>
             </li>
             <div class="nav toggle pull-right" style="margin-right:50px;">
-                <a href="{{ route('home') }}" title="View web"><i class="fa fa-th pull-right"></i></a>
+                <a href="{{ route('home') }}" target="_blank" title="View web"><i class="fa fa-th pull-right"></i></a>
             </div>
         </ul>
     </nav>

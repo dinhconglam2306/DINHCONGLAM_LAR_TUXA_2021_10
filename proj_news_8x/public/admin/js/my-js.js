@@ -79,6 +79,7 @@ $(document).ready(function () {
         let btn = $(this);
         let url = $(this).data("url");
         url = url.replace('value_new',value);
+        // window.location.href = url;
         callAjaxtypeButton(btn,url,'ordering');
     });
 
@@ -94,7 +95,7 @@ $(document).ready(function () {
         let selectValue = $(this).val();
         let url = $(this).data("url");
         url = url.replace("value_new", selectValue);
-        callAjaxtypeButton(btn,url,'select');
+        callAjaxtypeButton(btn,url,'select')
     });
 
 
@@ -130,7 +131,7 @@ $(document).ready(function () {
                         });
                     break;
                     case 'select':
-                        btn.notify("Cập nhật thành công", {
+                        btn.notify(response.message, {
                             position: "top center",
                             className: "success",
                         });

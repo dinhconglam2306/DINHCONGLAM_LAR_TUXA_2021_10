@@ -48,8 +48,17 @@ return [
         ],
         'level'       => [
             'admin'      => ['name' => 'Quản trị hệ thống'],
-            'member'      => ['name' => 'Người dùng bình thường'],
+            'member'     => ['name' => 'Người dùng bình thường'],
         ],
+        'type_menu'   => [
+            'link'                  => ['name' => 'Link'],
+            'category_article'      => ['name' => 'Danh mục bài viết'],
+        ],
+        'type_open'       => [
+            'current'       => ['name' => 'Trang hiện tại', 'type'=>'_self'],
+            'new_tab'       => ['name' => 'Tab mới','type'=>'_blank'],
+        ],
+        
         'search'       => [
             'all'           => ['name' => 'Search by All'],
             'id'            => ['name' => 'Search by ID'],
@@ -60,7 +69,6 @@ return [
             'description'   => ['name' => 'Search by Description'],
             'link'          => ['name' => 'Search by Link'],
             'content'       => ['name' => 'Search by Content'],
-
         ],
         'button' => [
             'edit'      => ['class' => 'btn-success', 'title' => 'Edit', 'icon' => 'fa-pencil', 'route-name' => '/form'],
@@ -77,14 +85,16 @@ return [
             'article'   => ['all', 'name', 'content'],
             'rss'       => ['all', 'name', 'link'],
             'user'      => ['all', 'username', 'email', 'fullname'],
+            'menu'      => ['all', 'name'],
         ],
         'button' => [
             'default'   => ['edit', 'delete'],
             'slider'    => ['edit', 'delete'],
             'category'  => ['edit', 'delete'],
             'article'   => ['edit', 'delete'],
-            'rss'   => ['edit', 'delete'],
-            'user'      =>  ['edit', 'delete'],
+            'rss'       => ['edit', 'delete'],
+            'user'      => ['edit', 'delete'],
+            'menu'      => ['edit', 'delete'],
         ]
     ],
     'notify' => [

@@ -1,33 +1,61 @@
 @php 
-    use App\Models\CategoryModel as CategoryModel;
+    use App\Models\CategoryModel ;
+    use App\Models\MenuModel;
     use App\Helpers\URL;
 
-    $categoryModel = new CategoryModel();
-    $itemsCategory = $categoryModel->listItems(null, ['task' => 'news-list-items']);
+
+    $menuModel     = new MenuModel();
+    $itemsMenu     = $menuModel->listItems(null,['task' => 'news-list-items']);
+
+
+
 
     $xhtmlMenu = '';
     $xhtmlMenuMobile = '';
 
-    if (count($itemsCategory) > 0) {
+    if (count($itemsMenu) > 0) {
         
         $xhtmlMenu = '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
-        $xhtmlMenuMobile = '<nav class="menu_nav"><ul class="menu_mm">';
-        $categoryIdCurrent = Route::input('category_id');
-
-        foreach ($itemsCategory as $item) {
+        
+        foreach ($itemsMenu as $item) {
+            $link = $item['link'];
+            $target = $item['type_open'];
             
-            $link       =  URL::linkCategory($item['id'], $item['name']); 
-            $classActive = ($categoryIdCurrent == $item['id']) ? 'class="active"' : '';
+            $target = config("zvn.template.type_open.$target.type");
 
-            $xhtmlMenu .= sprintf('<li %s><a href="%s">%s</a></li>', $classActive, $link, $item['name']);
-            $xhtmlMenuMobile .= sprintf('<li class="menu_mm"><a href="%s">%s</a></li>', $link, $item['name']);
+            switch ($item['type_menu']) {
+                case 'link':        $xhtmlMenuMobile = '<nav class="menu_nav"><ul class="menu_mm">';
+                    $xhtmlMenu .= sprintf('<li ><a href="%s" target="%s">%s</a></li>', $link, $target, $item['name']);
+                    $xhtmlMenuMobile .=sprintf('<li class="menu_mm"><a href="%s" target="%s">%s</a></li>', $link, $target, $item['name']);
+                break;
+                case 'category_article':
+                    $xhtmlMenu .= sprintf('<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></a>', $item['name']);
+                    $xhtmlMenuMobile .= sprintf('<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></a>', $item['name']);
+                    
+                    $categoryModel = new CategoryModel();
+                    $itemsCategory = $categoryModel->listItems(null, ['task' => 'news-list-items']);
+                    if (count($itemsCategory) > 0) {
+                       $xhtmlMenu .='<ul class="dropdown-menu">';
+                       $xhtmlMenuMobile .='<ul class="dropdown-menu">';
+
+                        foreach ($itemsCategory as $itemCategory) {
+                           $linkCategory = URL::linkCategory($itemCategory['id'],$itemCategory['name']);
+                           $xhtmlMenu .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', $linkCategory, $target, $itemCategory['name']);
+                           $xhtmlMenuMobile .=sprintf('<li class="menu_mm"><a href="%s" target="%s">%s</a></li>', $link, $target, $itemCategory['name']);
+                        }
+                        $xhtmlMenu .='</ul>';
+                        $xhtmlMenuMobile .='</ul>';
+                    }
+
+                    $xhtmlMenu .='</li>';
+                    $xhtmlMenuMobile .='</li>';
+                break;
+            }
         }
-
-        $xhtmlMenu .= sprintf('<li><a href="%s">Tin tức tổng hợp</a></li>', route('rss/index'));
-        $xhtmlMenuMobile .= sprintf('<li class="menu_mm"><a href="%s">Tin tức tổng hợp</a></li>', route('rss/index'));
 
         if (session('userInfo')) {
             $xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/logout'), 'Logout');
+            if(session('userInfo')['level'] == 'admin') $xhtmlMenuUser .= sprintf('<li><a href="%s" target="_target">%s</a></li>', route('dashboard'), 'Quản lý web');
         }else {
             $xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/login'), 'Login');
         }
@@ -54,7 +82,6 @@
                         <div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-start">
                             <a href="#">
                                 <div class="background_image" style="background-image:url({{asset('news/images/zendvn-online.png') }});background-size: contain"></div>
-
                             </a>
                         </div>
                     </div>

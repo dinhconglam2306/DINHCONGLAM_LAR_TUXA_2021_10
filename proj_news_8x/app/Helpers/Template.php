@@ -45,11 +45,13 @@ class Template
         $fieldInController = Config::get('zvn.config.search');
 
         $controllerName = (array_key_exists($controllerName, $fieldInController)) ? $controllerName : 'default';
+  
         $xhtmlField = null;
 
         foreach ($fieldInController[$controllerName] as $field) { // all id
             $xhtmlField .= sprintf('<li><a href="#" class="select-field" data-field="%s">%s</a></li>', $field, $tmplField[$field]['name']);
         }
+
 
         $searchField = (in_array($paramsSearch['field'],  $fieldInController[$controllerName])) ? $paramsSearch['field'] : "all";
 
