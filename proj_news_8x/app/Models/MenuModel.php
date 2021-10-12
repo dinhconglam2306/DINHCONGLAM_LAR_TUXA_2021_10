@@ -119,8 +119,6 @@ class MenuModel extends AdminModel
         }
 
         if ($options['task'] == 'add-item') {
-            $params['created_by'] = "hailan";
-            $params['created']    = date('Y-m-d');
             self::insert($this->prepareParams($params));
         }
 

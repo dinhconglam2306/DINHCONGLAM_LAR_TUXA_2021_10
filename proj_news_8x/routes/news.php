@@ -70,9 +70,17 @@ Route::group(['prefix' => $prefixNews, 'namespace' => 'News'], function () {
     $controllerName = 'rss';
     Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
         $controller = ucfirst($controllerName)  . 'Controller@';
-        Route::get('/tin-tuc-tong-hop',                             [ 'as' => "$controllerName/index",                  'uses' => $controller . 'index' ]);
+        Route::get('/tin-tuc-tong-hop',                     [ 'as' => "$controllerName/index",                  'uses' => $controller . 'index' ]);
         Route::get('/get-gold',                             [ 'as' => "$controllerName/get-gold",                  'uses' => $controller . 'getGold' ]);
         Route::get('/get-coin',                             [ 'as' => "$controllerName/get-coin",                  'uses' => $controller . 'getCoin' ]);
+    });
+
+    // ====================== RSS ========================
+    $prefix         = '';
+    $controllerName = 'gallery';
+    Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
+        $controller = ucfirst($controllerName)  . 'Controller@';
+        Route::get('/thu-vien-hinh-anh',    [ 'as' => "$controllerName/index",                  'uses' => $controller . 'index' ]);
     });
 });
 

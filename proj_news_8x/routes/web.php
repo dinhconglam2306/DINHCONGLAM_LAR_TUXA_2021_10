@@ -51,6 +51,15 @@ Route::group(['prefix' => $prefixAdmin, 'namespace' => 'Admin', 'middleware' => 
  
      });
 
+     //  ============================== GALLERY ==============================
+     $prefix         = 'gallery';
+     $controllerName = 'gallery';
+     Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
+         $controller = ucfirst($controllerName)  . 'Controller@';
+         Route::get('/',                                 [ 'as' => $controllerName,                  'uses' => $controller . 'index' ]);
+ 
+     });
+
     // ============================== CATEGORY ==============================
     $prefix         = 'category';
     $controllerName = 'category';

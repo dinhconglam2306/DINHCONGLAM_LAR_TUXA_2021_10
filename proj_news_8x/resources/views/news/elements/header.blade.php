@@ -43,6 +43,8 @@
                            $xhtmlMenu .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', $linkCategory, $target, $itemCategory['name']);
                            $xhtmlMenuMobile .=sprintf('<li class="menu_mm"><a href="%s" target="%s">%s</a></li>', $link, $target, $itemCategory['name']);
                         }
+                        $xhtmlMenu .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', route('rss/index'), $target, 'Tin tức tổng hợp');
+                        $xhtmlMenuMobile .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', route('rss/index'), $target, 'Tin tức tổng hợp');
                         $xhtmlMenu .='</ul>';
                         $xhtmlMenuMobile .='</ul>';
                     }
@@ -54,8 +56,8 @@
         }
 
         if (session('userInfo')) {
-            $xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/logout'), 'Logout');
-            if(session('userInfo')['level'] == 'admin') $xhtmlMenuUser .= sprintf('<li><a href="%s" target="_target">%s</a></li>', route('dashboard'), 'Quản lý web');
+            if(session('userInfo')['level'] == 'admin') $xhtmlMenuUser = sprintf('<li><a href="%s" target="_target">%s</a></li>', route('dashboard'), 'Quản lý web');
+            $xhtmlMenuUser .= sprintf('<li><a href="%s">%s</a></li>', route('auth/logout'), 'Logout');
         }else {
             $xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/login'), 'Login');
         }
