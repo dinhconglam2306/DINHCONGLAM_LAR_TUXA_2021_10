@@ -98,6 +98,9 @@ $(document).ready(function () {
         callAjaxtypeButton(btn,url,'select')
     });
 
+    // Click vào chọn ảnh thì mở file maneger
+    $('#lfm').filemanager('image');
+
 
 
 

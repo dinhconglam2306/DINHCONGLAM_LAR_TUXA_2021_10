@@ -24,23 +24,13 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $articleModel  = new ArticleModel();
-        $categoryModel = new CategoryModel();
-        $userModel     = new UserModel();
-        $sliderModel   = new SliderModel();
-        $rssModel      = new RssModel();
+        
 
-        $totalArticle  = $articleModel->countItems($this->params, ['task' => 'count-item-in-dashboard']);
-        $totalCategory = $categoryModel->countItems($this->params, ['task' => 'count-item-in-dashboard']);
-        $totalUser     = $userModel->countItems($this->params, ['task' => 'count-item-in-dashboard']);
-        $totalSlider   = $sliderModel->countItems($this->params, ['task' => 'count-item-in-dashboard']);
-        $totalRss      = $rssModel->countItems($this->params, ['task' => 'count-item-in-dashboard']);
-
-        $totalArticle = array_sum(array_column($totalArticle,'count'));
-        $totalCategory = array_sum(array_column($totalCategory,'count'));
-        $totalUser = array_sum(array_column($totalUser,'count'));
-        $totalSlider = array_sum(array_column($totalSlider,'count'));
-        $totalRss = array_sum(array_column($totalRss,'count'));
+        $totalArticle   = ArticleModel::count();
+        $totalCategory  = CategoryModel::count();
+        $totalUser      = UserModel::count();
+        $totalSlider    = SliderModel::count();
+        $totalRss       = RssModel::count();
 
 
 
@@ -50,6 +40,9 @@ class DashboardController extends Controller
             ['link' => route('article'),  'name' => 'Article', 'icon' => 'fa fa-newspaper-o', 'total' => $totalArticle],
             ['link' => route('slider'),   'name' => 'Slider', 'icon' => 'fa fa-sliders', 'total' => $totalSlider],
             ['link' => route('rss'),      'name' => 'Rss', 'icon' => 'fa fa-link', 'total' => $totalRss],
+            ['link' => route('menu'),     'name' => 'Menu', 'icon' => 'fa fa-sitemap', 'total' => 1],
+            ['link' => route('gallery'),  'name' => 'Gallery', 'icon' => 'fa fa-picture-o', 'total' => 1],
+            ['link' => route('setting'),  'name' => 'Cấu hình', 'icon' => 'fa fa-cogs', 'total' => 1],
             ['link' => route('password'), 'name' => 'Password', 'icon' => 'fa fa-key', 'total' =>1],
         ];
         

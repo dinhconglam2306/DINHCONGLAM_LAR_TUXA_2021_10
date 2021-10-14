@@ -21,6 +21,7 @@ class MenuController extends AdminController
     public function save(MainRequest $request)
     {
         if ($request->method() == 'POST') {
+
             $params = $request->all();
 
             $task   = "add-item";

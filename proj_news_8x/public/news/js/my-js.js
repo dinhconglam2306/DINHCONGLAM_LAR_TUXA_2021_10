@@ -6,4 +6,8 @@ $(document).ready(function () {
     $.get($('#box-coin').data('url'), function (data) {
         $('#box-coin').html(data);
     }, 'html');
+
+    let  category = $('ul li .category_article').parent().prev();
+    // console.log(category)
+    category.addClass('active');
 });

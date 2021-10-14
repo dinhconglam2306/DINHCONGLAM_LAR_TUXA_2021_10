@@ -8,7 +8,7 @@
 
     $statusValue      = ['default' => 'Select status', 'active' => config('zvn.template.status.active.name'), 'inactive' => config('zvn.template.status.inactive.name')];
     $typeMenuValue       = ['default' => 'Select value', 'link' => config('zvn.template.type_menu.link.name'), 'category_article' => config('zvn.template.type_menu.category_article.name')];
-    $typeOpenValue       = ['default' => 'Select value', 'current' => config('zvn.template.type_open.current.name'), 'new_tab' => config('zvn.template.type_open.new_tab.name')];
+    $typeOpenValue       = ['default' => 'Select value', '_blank' => config('zvn.template.type_open._blank.name'), '_self' => config('zvn.template.type_open._self.name')];
     $inputHiddenID    = Form::hidden('id', @$item['id']);
 
     $elements = [

@@ -3,12 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
-use App\Rules\Uppercase;
 
-class PasswordRequest extends FormRequest
+class SettingRequest extends FormRequest
 {
-    private $table            = 'user';
+    private $table            = 'setting';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,14 +24,13 @@ class PasswordRequest extends FormRequest
      */
     public function rules()
     {
-
-        $rule = [
-            'old_password'        =>['required', new Uppercase],
-            'new_password'        => 'required|between:5,100',
-            'password_confirmation'    => 'required|same:new_password',
+        // $condThumb = 'bail|required|image|max:500';
+        return [
+            // 'logo'        =>  $condThumb,
+            'hotline'     => 'bail|required|min:2',
+            'date_time'   => 'bail|required|min:2',
+            'address'        => 'bail|required|min:5',
         ];
-
-        return $rule;
     }
 
     public function messages()

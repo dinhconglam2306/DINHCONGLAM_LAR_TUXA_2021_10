@@ -55,8 +55,8 @@ return [
             'category_article'      => ['name' => 'Danh mục bài viết'],
         ],
         'type_open'       => [
-            'current'       => ['name' => 'Trang hiện tại', 'type'=>'_self'],
-            'new_tab'       => ['name' => 'Tab mới','type'=>'_blank'],
+            '_self'       => ['name' => 'Trang hiện tại'],
+            '_blank'       => ['name' => 'Tab mới'],
         ],
         
         'search'       => [

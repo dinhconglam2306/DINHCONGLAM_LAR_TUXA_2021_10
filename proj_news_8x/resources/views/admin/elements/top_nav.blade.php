@@ -1,6 +1,6 @@
 @php
-    $userName =session('userInfo')['username'];
-    $avatar =session('userInfo')['avatar'];
+    $userName   =session('userInfo')['username'];
+    $avatar     =session('userInfo')['avatar'];
 @endphp
 <div class="nav_menu">
     <nav>

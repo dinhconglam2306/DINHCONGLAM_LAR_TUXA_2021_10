@@ -14,7 +14,7 @@ $prefixAdmin = config('zvn.url.prefix_admin');
 
 Route::group(['prefix' => $prefixAdmin, 'namespace' => 'Admin', 'middleware' => ['permission.admin']], function () {
     // ============================== DASHBOARD ==============================
-    $prefix         = 'dashboard';
+    $prefix         = '';
     $controllerName = 'dashboard';
     Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
         $controller = ucfirst($controllerName)  . 'Controller@';
@@ -123,6 +123,18 @@ Route::group(['prefix' => $prefixAdmin, 'namespace' => 'Admin', 'middleware' => 
         $controller = ucfirst($controllerName)  . 'Controller@';
         Route::get('/',                 [ 'as' => $controllerName,      'uses' => $controller . 'index']);
         Route::post('change-password',  [ 'as' => $controllerName . '/change-password',        'uses' => $controller . 'changePassword']);
+    });
+
+    // ============================== SETTING ==============================
+    $prefix         = 'setting';
+    $controllerName = 'setting';
+    Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
+        $controller = ucfirst($controllerName)  . 'Controller@';
+        Route::get('/',                      [ 'as' => $controllerName,                          'uses' => $controller . 'index']);
+        Route::post('/general-setting',       [ 'as' => $controllerName. '/general_setting',      'uses' => $controller . 'general']);
+        Route::post('/social-setting',        [ 'as' => $controllerName. '/social_setting',       'uses' => $controller . 'social']);
+        Route::post('/email-account-setting', [ 'as' => $controllerName. '/email_account_setting','uses' => $controller . 'emailAccount']);
+        Route::post('/email-bcc-setting',     [ 'as' => $controllerName. '/email_bcc_setting',    'uses' => $controller . 'emailBcc']);
     });
 });
 

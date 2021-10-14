@@ -12,7 +12,7 @@
 
     $xhtmlMenu = '';
     $xhtmlMenuMobile = '';
-
+    $class = '';
     if (count($itemsMenu) > 0) {
         
         $xhtmlMenu = '<nav class="main_nav"><ul class="main_nav_list d-flex flex-row align-items-center justify-content-start">';
@@ -21,11 +21,21 @@
             $link = $item['link'];
             $target = $item['type_open'];
             
-            $target = config("zvn.template.type_open.$target.type");
+            // $target = config("zvn.template.type_open.$target.type");
+            $currentUrl    = request()->path();
+
+            if($link == '/'){
+                $class = ($link == $currentUrl)? 'active' : '';
+            }else{
+                $checkLink     = str_replace('/', '', $link);
+                $class = ($currentUrl == $checkLink) ? 'active' : '';
+            }
 
             switch ($item['type_menu']) {
-                case 'link':        $xhtmlMenuMobile = '<nav class="menu_nav"><ul class="menu_mm">';
-                    $xhtmlMenu .= sprintf('<li ><a href="%s" target="%s">%s</a></li>', $link, $target, $item['name']);
+
+                case 'link':        
+                    $xhtmlMenuMobile = '<nav class="menu_nav"><ul class="menu_mm">';
+                    $xhtmlMenu .= sprintf('<li class="%s"><a href="%s" target="%s">%s</a></li>',$class, $link, $target, $item['name']);
                     $xhtmlMenuMobile .=sprintf('<li class="menu_mm"><a href="%s" target="%s">%s</a></li>', $link, $target, $item['name']);
                 break;
                 case 'category_article':
@@ -35,16 +45,18 @@
                     $categoryModel = new CategoryModel();
                     $itemsCategory = $categoryModel->listItems(null, ['task' => 'news-list-items']);
                     if (count($itemsCategory) > 0) {
-                       $xhtmlMenu .='<ul class="dropdown-menu">';
+                       $xhtmlMenu .='<ul class="dropdown-menu active">';
                        $xhtmlMenuMobile .='<ul class="dropdown-menu">';
-
+                        $classCategory ='';
                         foreach ($itemsCategory as $itemCategory) {
                            $linkCategory = URL::linkCategory($itemCategory['id'],$itemCategory['name']);
-                           $xhtmlMenu .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', $linkCategory, $target, $itemCategory['name']);
+                           $activeCategory =  str_replace('http://proj_news_8x.xyz/', '', $linkCategory);
+
+                           $classCategory = (request()->path() == $activeCategory) ? 'active category_article' : '';
+                          
+                           $xhtmlMenu .= sprintf('<li class="category %s"><a href="%s" target="%s">%s</a></li>',$classCategory, $linkCategory, $target, $itemCategory['name']);
                            $xhtmlMenuMobile .=sprintf('<li class="menu_mm"><a href="%s" target="%s">%s</a></li>', $link, $target, $itemCategory['name']);
                         }
-                        $xhtmlMenu .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', route('rss/index'), $target, 'Tin tức tổng hợp');
-                        $xhtmlMenuMobile .= sprintf('<li class="category"><a href="%s" target="%s">%s</a></li>', route('rss/index'), $target, 'Tin tức tổng hợp');
                         $xhtmlMenu .='</ul>';
                         $xhtmlMenuMobile .='</ul>';
                     }
@@ -56,10 +68,10 @@
         }
 
         if (session('userInfo')) {
-            if(session('userInfo')['level'] == 'admin') $xhtmlMenuUser = sprintf('<li><a href="%s" target="_target">%s</a></li>', route('dashboard'), 'Quản lý web');
-            $xhtmlMenuUser .= sprintf('<li><a href="%s">%s</a></li>', route('auth/logout'), 'Logout');
+            if(session('userInfo')['level'] == 'admin') @$xhtmlMenuUser = sprintf('<li><a href="%s" target="_target">%s</a></li>', route('dashboard'), 'Quản lý web');
+            @$xhtmlMenuUser .= sprintf('<li><a href="%s">%s</a></li>', route('auth/logout'), 'Logout');
         }else {
-            $xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/login'), 'Login');
+            @$xhtmlMenuUser = sprintf('<li><a href="%s">%s</a></li>', route('auth/login'), 'Login');
         }
 
         $xhtmlMenu .= $xhtmlMenuUser . '</ul></nav>';

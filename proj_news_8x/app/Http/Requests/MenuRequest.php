@@ -27,7 +27,10 @@ class MenuRequest extends FormRequest
         $id = $this->id;
 
         $condName  = "bail|required|between:5,100|unique:$this->table,name";
-
+        $condTypeMenu = implode(',',array_keys(config('zvn.template.type_menu')));
+        $condTypeOpen = implode(',',array_keys(config('zvn.template.type_open')));
+        
+      
         if(!empty($id)){ // edit
             $condName  .= ",$id";
         }
@@ -35,8 +38,8 @@ class MenuRequest extends FormRequest
             'name'          => $condName,
             'ordering'      => 'bail|required|numeric',
             'status'        => 'bail|in:active,inactive',
-            'type_menu'     => 'bail|in:link,category_article',
-            'type_open'     => 'bail|in:current,new_tab',
+            'type_menu'     => "bail|in:$condTypeMenu",
+            'type_open'     => "bail|in:$condTypeOpen",
         ];
     }
 
