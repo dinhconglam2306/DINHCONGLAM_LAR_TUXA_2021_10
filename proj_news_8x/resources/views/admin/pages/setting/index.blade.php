@@ -16,14 +16,16 @@
               </ul>
               <div id="settingContent" class="tab-content">
                   @switch($type)
-                      @case('general')
-                          @include('admin.pages.setting.form_general')
-                          @break
-                      @case(2)
-                          
-                          @break
-                      @default
-                          
+                    @case('general')
+                        @include('admin.pages.setting.form_general')
+                    @break
+                    @case('email')
+                        @include('admin.pages.setting.form_email_account')
+                        @include('admin.pages.setting.form_email_bcc')
+                    @break
+                    @case('social')
+                        @include('admin.pages.setting.form_social_network')
+                    @break
                   @endswitch
               </div>
            </div>

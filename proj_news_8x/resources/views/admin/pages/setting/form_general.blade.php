@@ -7,10 +7,9 @@
     $formLabelAttr      = config('zvn.template.form_label');
 
 
-    $inputHiddenID      = Form::hidden('id', @$item['id']);
+    $inputHiddenTask      = Form::hidden('task', 'general');
 
-    
-    $formTextarea       = sprintf('<textarea class="form-control" id="setting-general" name="introduce">%s</textarea>',$item['introduce']);
+    $formTextarea       = sprintf('<textarea class="form-control" id="setting-general" name="introduce">%s</textarea>',@$settingGeneral['introduce']);
     $logo               = sprintf('
         <div class="input-group">
             <span class="input-group-btn">
@@ -19,7 +18,7 @@
             <input id="thumbnail" class="form-control" type="text" name="logo" value="%s">
         </div>
         <img src="%s" id="holder" style="margin-top:15px;max-height:100px;" >
-    ',$item['logo'],asset($item['logo']));
+    ',@$settingGeneral['logo'],asset(@$settingGeneral['logo']));
     
     $elements = [
         [
@@ -28,26 +27,26 @@
         ],
         [
             'label'   => Form::label('hotline', 'Hotline', $formLabelAttr),
-            'element' => Form::text('hotline', @$item['hotline'],  $formInputAttr )
+            'element' => Form::text('hotline', @$settingGeneral['hotline'],  $formInputAttr )
         ],
         [
             'label'   => Form::label('copyright', 'Copyright', $formLabelAttr),
-            'element' => Form::text('copyright', @$item['copyright'],  $formInputAttr )
+            'element' => Form::text('copyright', @$settingGeneral['copyright'],  $formInputAttr )
         ],
         [
             'label'   => Form::label('date_time', 'Thời gian làm việc', $formLabelAttr),
-            'element' => Form::text('date_time',@$item['date_time'], $formInputAttr),
+            'element' => Form::text('date_time',@$settingGeneral['date_time'], $formInputAttr),
         ],
         [
             'label'   => Form::label('address', 'Địa chỉ ', $formLabelAttr),
-            'element' => Form::text('address',@$item['address'], $formInputAttr),
+            'element' => Form::text('address',@$settingGeneral['address'], $formInputAttr),
         ],
         [
             'label'   => Form::label('introduce', 'Giới thiệu', $formLabelAttr),
             'element' => $formTextarea,
         ],
         [
-            'element' => $inputHiddenID  . Form::submit('Save', ['class'=>'btn btn-success']),
+            'element' => $inputHiddenTask  . Form::submit('Save', ['class'=>'btn btn-success']),
             'type'    => "btn-submit"
         ]
     ];

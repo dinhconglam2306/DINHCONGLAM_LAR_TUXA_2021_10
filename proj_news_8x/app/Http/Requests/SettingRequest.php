@@ -25,12 +25,36 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         // $condThumb = 'bail|required|image|max:500';
-        return [
-            // 'logo'        =>  $condThumb,
-            'hotline'     => 'bail|required|min:2',
-            'date_time'   => 'bail|required|min:2',
-            'address'        => 'bail|required|min:5',
-        ];
+        $rule =[];
+
+        $task = $this->task;
+
+        switch ($task) {
+            case 'general':
+                $rule =[
+                    // 'logo'        =>  $condThumb,
+                    'hotline'       => 'bail|required|min:2',
+                    'copyright'     => 'bail|required|min:2',
+                    'date_time'     => 'bail|required|min:2',
+                    'address'       => 'bail|required|min:5',];
+            break;
+            case 'email_bcc':
+                $rule =['bcc'       => 'bail|required|email'];
+            break;
+            case 'email_account':
+                $rule =[
+                    'email_account'       => 'bail|required|email',
+                    'password'            => 'bail|required|min:6',];
+            break;
+            case 'social':
+                $rule =[
+                    'youtube'       => 'bail|required|min:5|url',
+                    'facebook'      => 'bail|required|min:5|url',
+                ];
+            break;
+        }
+
+        return $rule;
     }
 
     public function messages()

@@ -64,24 +64,25 @@ class SettingModel extends AdminModel
     {
         $result = null;
 
-        if ($options['task'] == 'get-item') {
-            $result = self::select('id', 'name', 'ordering', 'description', 'status', 'link', 'thumb')->where('id', $params['id'])->first();
-        }
-
-        if ($options['task'] == 'get-thumb') {
-            $result = self::select('id', 'thumb')->where('id', $params['id'])->first();
-        }
 
         if($options['task'] == 'setting-general'){
             $result = self::select('value')->where('key_value', 'setting_general')->first();
             $result = json_decode($result['value'],true);
+        }
 
-            // $result = json_decode(json_encode($query),true);
-            // $result = gettype($query);
-            // $result = var_dump(json_decode($query));
-            // $result = json_decode($query,true)['value'];
-            // $result = explode(',"', $result);
-        
+        if($options['task'] == 'setting-email-bcc'){
+            $result = self::select('value')->where('key_value', 'setting_email_bcc')->first();
+            $result = json_decode($result['value'],true);
+        }
+
+        if($options['task'] == 'setting-email-account'){
+            $result = self::select('value')->where('key_value', 'setting_email_account')->first();
+            $result = json_decode($result['value'],true);
+        }
+
+        if($options['task'] == 'setting-social'){
+            $result = self::select('value')->where('key_value', 'setting_social')->first();
+            $result = json_decode($result['value'],true);
         }
 
         return $result;
@@ -92,6 +93,22 @@ class SettingModel extends AdminModel
         if ($options['task'] == 'setting-general') {
             $params = json_encode($params,JSON_UNESCAPED_UNICODE);
             self::where('key_value', 'setting_general')->update(['value' => $params ]);
+        }
+
+        if ($options['task'] == 'setting-email-bcc') {
+            $params = json_encode($params,JSON_UNESCAPED_UNICODE);
+            self::where('key_value', 'setting_email_bcc')->update(['value' => $params ]);
+        }
+
+        if ($options['task'] == 'setting-email-account') {
+            $params['password'] = md5($params['password']);
+            $params = json_encode($params,JSON_UNESCAPED_UNICODE);
+            self::where('key_value', 'setting_email_account')->update(['value' => $params ]);
+        }
+
+        if ($options['task'] == 'setting-social') {
+            $params = json_encode($params,JSON_UNESCAPED_UNICODE);
+            self::where('key_value', 'setting_social')->update(['value' => $params ]);
         }
     }
     

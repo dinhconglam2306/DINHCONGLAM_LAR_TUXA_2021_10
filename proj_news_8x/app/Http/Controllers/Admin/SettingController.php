@@ -23,9 +23,16 @@ class SettingController extends Controller
 
     public function index(Request $request)
     {
-        $item = $this->model->getItem(null,['task' => 'setting-general']);
+        $settingGeneral         = $this->model->getItem(null,['task' => 'setting-general']);
+        $settingEmailBcc        = $this->model->getItem(null,['task' => 'setting-email-bcc']);
+        $settingEmailAccount    = $this->model->getItem(null,['task' => 'setting-email-account']);
+        $settingSocial          = $this->model->getItem(null,['task' => 'setting-social']);
+        
         return view($this->pathViewController .  'index', [
-            'item' => $item,
+            'settingGeneral'        => $settingGeneral,
+            'settingEmailBcc'       => $settingEmailBcc,
+            'settingEmailAccount'   => $settingEmailAccount,
+            'settingSocial'         => $settingSocial,
         ]);
     }
 
@@ -35,10 +42,52 @@ class SettingController extends Controller
         if ($request->method() == 'POST') {
             $params = $request->all();
             unset($params['_token']);
-            unset($params['id']);
+            unset($params['task']);
             
             $this->model->saveItem($params, ['task' => 'setting-general']);
             return redirect()->route('setting',['type'=>'general'])->with("zvn_notify", 'Cập nhật thành công');
+            
+        }
+    }
+    public function emailAccount(MainRequest $request)
+    {
+
+        if ($request->method() == 'POST') {
+            $params = $request->all();
+            unset($params['_token']);
+            unset($params['task']);
+
+            $this->model->saveItem($params, ['task' => 'setting-email-account']);
+            return redirect()->route('setting',['type'=>'email'])->with("zvn_notify", 'Cập nhật thành công');
+            
+        }
+    }
+
+    public function emailBcc(MainRequest $request)
+    {
+
+        if ($request->method() == 'POST') {
+            $params = $request->all();
+            unset($params['_token']);
+            unset($params['task']);
+
+            $this->model->saveItem($params, ['task' => 'setting-email-bcc']);
+            return redirect()->route('setting',['type'=>'email'])->with("zvn_notify", 'Cập nhật thành công');
+            
+        }
+    }
+
+    public function social(MainRequest $request)
+    {
+
+        if ($request->method() == 'POST') {
+            
+            $params = $request->all();
+            unset($params['_token']);
+            unset($params['task']);
+
+            $this->model->saveItem($params, ['task' => 'setting-social']);
+            return redirect()->route('setting',['type'=>'social'])->with("zvn_notify", 'Cập nhật thành công');
             
         }
     }

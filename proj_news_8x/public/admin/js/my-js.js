@@ -101,6 +101,15 @@ $(document).ready(function () {
     // Click vào chọn ảnh thì mở file maneger
     $('#lfm').filemanager('image');
 
+    // delete message after 2s
+    let messageSuccess = $('.alert-info');
+    let messageError = $('.alert-danger');
+    
+   
+    setTimeout(function(){
+        messageSuccess.hide('slow', function(){ messageSuccess.remove();});
+        messageError.hide('slow', function(){ messageError.remove();});
+    },3000);
 
 
 
