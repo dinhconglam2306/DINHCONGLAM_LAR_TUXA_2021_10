@@ -119,6 +119,7 @@ $(document).ready(function () {
             url: url,
             dataType: "json",
             success: function (response) {
+                console.log(response);
                switch (type) {
                     case 'status':
                         btn.removeClass(currentClass);

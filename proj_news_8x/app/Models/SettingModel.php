@@ -85,6 +85,19 @@ class SettingModel extends AdminModel
             $result = json_decode($result['value'],true);
         }
 
+       
+
+        // in NEWS
+        if($options['task'] == 'new-in-contact'){
+            $email  =self::select('value')->where('key_value', 'setting_email_account')->first();
+            $email = json_decode($email['value'],true);
+
+            $result = self::select('value')->where('key_value', 'setting_general')->first();
+            $result = json_decode($result['value'],true);
+            $result['email'] = $email['email_account'];
+           
+        }
+
         return $result;
     }
 

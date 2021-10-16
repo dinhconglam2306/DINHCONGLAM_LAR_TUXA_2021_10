@@ -185,3 +185,13 @@ li.category {
 a.dropdown-toggle.active {
     color: #61e49b;
 }
+
+
+.icon-size {
+    font-size: 40px;
+    color: #d8d5d5;
+}
+
+.subtitle {
+    color: #afaeae;
+}
