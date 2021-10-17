@@ -30,6 +30,10 @@ return [
             'block'    => ['name' => 'Bị khóa', 'class' => 'btn-danger'],
             'default'  => ['name' => 'Chưa xác định', 'class' => 'btn-success'],
         ],
+        'contact'       => [
+            'active'      =>  ['name' => 'Đã liên lạc', 'class' => 'btn-primary'],
+            'inactive'        => ['name' => 'Chưa liên lạc', 'class' => 'btn-warning']
+        ],
         'is_home'       => [
             'yes'      =>  ['name' => 'Hiển thị', 'class' => 'btn-primary'],
             'no'        => ['name' => 'Không hiển thị', 'class' => 'btn-warning']
@@ -85,6 +89,7 @@ return [
             'article'   => ['all', 'name', 'content'],
             'rss'       => ['all', 'name', 'link'],
             'user'      => ['all', 'username', 'email', 'fullname'],
+            'contact'   => ['all', 'username', 'email'],
             'menu'      => ['all', 'name'],
         ],
         'button' => [
@@ -94,6 +99,7 @@ return [
             'article'   => ['edit', 'delete'],
             'rss'       => ['edit', 'delete'],
             'user'      => ['edit', 'delete'],
+            'contact'   => ['delete'],
             'menu'      => ['edit', 'delete'],
         ]
     ],

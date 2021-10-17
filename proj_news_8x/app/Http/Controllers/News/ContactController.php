@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\News;
-
+use App\Helpers\MailContact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest as MainRequest;
 use App\Models\SettingModel;
-// use Illuminate\Support\Facades\Mail;
-use Mail;
+use App\Models\ContactModel;
+
 
 class ContactController extends Controller
 {
@@ -18,15 +18,14 @@ class ContactController extends Controller
 
     public function __construct()
     {
+        $this->model = new ContactModel();
         view()->share('controllerName', $this->controllerName);
     }
 
     public function index(Request $request)
     {
         view()->share('title', 'Liên Hệ');
-
         $settingModel = new SettingModel();
-
         $contact  = $settingModel->getItem(null, ['task' => 'new-in-contact']);
 
         $contactValue = [
@@ -55,16 +54,14 @@ class ContactController extends Controller
 
     public function sendContact(MainRequest $request)
     {   
-        
         $params = $request->all();
-        $email['to_email'] = $params['email'];
-        $email['to_email_bcc'] = '';
-        $titleEmail = 'Thông báo từ ZendVN';
 
-        Mail::send('news.pages.contact.email', $email, function ($message) use ($titleEmail, $email) {
-            $message->to($email['to_email'])->subject($titleEmail);
-            $message->from($email['to_email'], $titleEmail);
-        });
+        //Send Email
+        MailContact::sendCustomer($params);
+        MailContact::sendBcc($params);
+
+        // Save Database
+        $this->model->saveItem($params, ['task' => 'add-item']);
         return redirect()->back()->with('send_success', 'Gửi thông tin liên hệ thành công');
     }
 }

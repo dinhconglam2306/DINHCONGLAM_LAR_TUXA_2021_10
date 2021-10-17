@@ -59,7 +59,7 @@ class ArticleController extends AdminController
         $params["id"]             = $request->id;
         $this->model->saveItem($params, ['task' => 'change-type']);
         return response()->json([
-            'status' => 'success'
+            'message' => config('zvn.notify.success.update'),
         ]);
     }
 }

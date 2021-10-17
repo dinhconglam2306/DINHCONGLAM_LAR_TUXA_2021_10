@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        App\Providers\MailConfigServiceProvider::class,
 
         /*
          * Package Service Providers...

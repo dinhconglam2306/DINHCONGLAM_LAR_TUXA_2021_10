@@ -63,7 +63,7 @@ class UserController extends AdminController
         $params["id"]               = $request->id;
         $this->model->saveItem($params, ['task' => 'change-level']);
         return response()->json([
-            'status' => 'success'
+            'message' => config('zvn.notify.success.update'),
         ]);
     }
 }

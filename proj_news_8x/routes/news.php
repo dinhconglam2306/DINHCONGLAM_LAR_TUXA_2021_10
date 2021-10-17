@@ -87,7 +87,7 @@ Route::group(['prefix' => $prefixNews, 'namespace' => 'News'], function () {
      $controllerName = 'contact';
      Route::group(['prefix' =>  $prefix], function () use ($controllerName) {
          $controller = ucfirst($controllerName)  . 'Controller@';
-         Route::get('/contact',    [ 'as' => "$controllerName",                  'uses' => $controller . 'index' ]);
+         Route::get('/contact',    [ 'as' => "$controllerName/index",                  'uses' => $controller . 'index' ]);
          Route::post('send-contact',  [ 'as' => "$controllerName/send-contact",             'uses' => $controller . 'sendContact']);
      });
 });

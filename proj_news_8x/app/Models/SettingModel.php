@@ -114,7 +114,7 @@ class SettingModel extends AdminModel
         }
 
         if ($options['task'] == 'setting-email-account') {
-            $params['password'] = md5($params['password']);
+            $params['password'] = $params['password'];
             $params = json_encode($params,JSON_UNESCAPED_UNICODE);
             self::where('key_value', 'setting_email_account')->update(['value' => $params ]);
         }

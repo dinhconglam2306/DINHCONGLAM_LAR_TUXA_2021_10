@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
-use App\Helpers\Template;
 use Illuminate\Http\Request;
 use App\Models\SettingModel as MainModel;
 use App\Http\Requests\SettingRequest as MainRequest;

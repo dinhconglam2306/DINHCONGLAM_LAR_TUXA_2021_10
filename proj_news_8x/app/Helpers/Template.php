@@ -103,6 +103,23 @@ class Template
         return $xhtml;
     }
 
+    public static function showItemContact($controllerName, $id, $contactValue)
+    {
+        $tmplContact             = Config::get('zvn.template.contact');
+        $contactValue            = array_key_exists($contactValue, $tmplContact) ? $contactValue : 'default';
+        $currentTemplateContact  = $tmplContact[$contactValue];
+        $link                   = route($controllerName . '/status', ['status' => $contactValue, 'id' => $id]);
+
+        $xhtml = sprintf(
+            '<button data-url="%s" type="button" data-class="%s" class="btn btn-round %s status-ajax">%s</button>',
+            $link,
+            $currentTemplateContact['class'],
+            $currentTemplateContact['class'],
+            $currentTemplateContact['name']
+        );
+        return $xhtml;
+    }
+
     public static function showItemOrdering($controllerName, $orderingValue, $id)
     {
 
@@ -164,8 +181,9 @@ class Template
     {
         $tmplButton   = Config::get('zvn.template.button');
         $buttonInArea = Config::get('zvn.config.button');
-
+       
         $controllerName = (array_key_exists($controllerName, $buttonInArea)) ? $controllerName : "default";
+
         $listButtons    = $buttonInArea[$controllerName]; // ['edit', 'delete']
 
         $xhtml = '<div class="zvn-box-btn-filter">';

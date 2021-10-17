@@ -28,6 +28,7 @@
             <li><a href="{{ route('rss') }}"><i class="fa fa-link"></i> Rss</a></li>
             <li><a href="{{ route('menu') }}"><i class="fa fa-sitemap" aria-hidden="true"></i> Menu</a></li>
             <li><a href="{{ route('gallery') }}"><i class="fa fa-picture-o" aria-hidden="true"></i>Gallery</a></li>
+            <li><a href="{{ route('contact') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i></i>Contact</a></li>
             <li class="{{ $settingActive }}">
                 <a><i class="fa fa-cogs"></i> Cấu hình <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
